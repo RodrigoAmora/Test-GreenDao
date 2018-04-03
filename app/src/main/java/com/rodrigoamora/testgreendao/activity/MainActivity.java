@@ -11,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.rodrigoamora.testgreendao.R;
-import com.rodrigoamora.testgreendao.fragment.SaveFragment;
+import com.rodrigoamora.testgreendao.fragment.SavePersonFragment;
 import com.rodrigoamora.testgreendao.util.FragmentUtil;
 
 public class MainActivity extends AppCompatActivity
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         creteNavigationView();
-        FragmentUtil.changeFragment(R.id.conatiner, SaveFragment.class, getFragmentManager(), false, null);
+        FragmentUtil.changeFragment(R.id.conatiner, SavePersonFragment.class, getFragmentManager(), false, null);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_save_person) {
-            FragmentUtil.changeFragment(R.id.conatiner, SaveFragment.class, getFragmentManager(), false, null);
+            FragmentUtil.changeFragment(R.id.conatiner, SavePersonFragment.class, getFragmentManager(), false, null);
         } else if (id == R.id.nav_list_people) {
 
         }

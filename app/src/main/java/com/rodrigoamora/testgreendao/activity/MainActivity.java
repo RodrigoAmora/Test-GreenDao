@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.rodrigoamora.testgreendao.R;
+import com.rodrigoamora.testgreendao.dao.DaoFactory;
+import com.rodrigoamora.testgreendao.entity.DaoSession;
 import com.rodrigoamora.testgreendao.fragment.ListPeopleFragment;
 import com.rodrigoamora.testgreendao.fragment.SavePersonFragment;
 import com.rodrigoamora.testgreendao.util.FragmentUtil;
@@ -23,7 +25,13 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         creteNavigationView();
-        FragmentUtil.changeFragment(R.id.conatiner, SavePersonFragment.class, getFragmentManager(), false, null);
+
+        DaoSession session = DaoFactory.createSession(this);
+        if (session.getPersonDao().loadAll().isEmpty()) {
+            FragmentUtil.changeFragment(R.id.conatiner, SavePersonFragment.class, getFragmentManager(), false, null);
+        } else {
+            FragmentUtil.changeFragment(R.id.conatiner, ListPeopleFragment.class, getFragmentManager(), false, null);
+        }
     }
 
     @Override

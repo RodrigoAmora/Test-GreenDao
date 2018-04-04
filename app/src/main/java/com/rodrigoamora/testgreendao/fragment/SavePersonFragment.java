@@ -26,7 +26,7 @@ public class SavePersonFragment extends Fragment implements View.OnClickListener
 
         btSave = rootView.findViewById(R.id.bt_save);
         btSave.setOnClickListener(this);
-        
+
         inputEmail = rootView.findViewById(R.id.input_email);
         inputPhone = rootView.findViewById(R.id.input_phone);
         inputName = rootView.findViewById(R.id.input_name);

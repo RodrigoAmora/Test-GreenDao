@@ -11,8 +11,14 @@
     <string name="hint_phone_person">Phone person...</string>
 
     <string name="created_by_rodrigo_amora">Created by Rodrigo Amora</string>
+    <string name="email">E-mail:</string>
     <string name="list_people">List people</string>
+    <string name="people">People</string>
+    <string name="person">Person</string>
+    <string name="phone">Phone:</string>
+    <string name="name">Name:</string>
     <string name="save">Save</string>
     <string name="save_person">Save person</string>
+    <string name="total">Total:</string>
 
 </resources>

@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.rodrigoamora.testgreendao.R;
+import com.rodrigoamora.testgreendao.fragment.ListPeopleFragment;
 import com.rodrigoamora.testgreendao.fragment.SavePersonFragment;
 import com.rodrigoamora.testgreendao.util.FragmentUtil;
 
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_save_person) {
             FragmentUtil.changeFragment(R.id.conatiner, SavePersonFragment.class, getFragmentManager(), false, null);
         } else if (id == R.id.nav_list_people) {
-
+            FragmentUtil.changeFragment(R.id.conatiner, ListPeopleFragment.class, getFragmentManager(), false, null);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

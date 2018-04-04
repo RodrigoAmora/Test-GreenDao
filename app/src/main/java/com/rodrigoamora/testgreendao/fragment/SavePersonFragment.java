@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.rodrigoamora.testgreendao.R;
 import com.rodrigoamora.testgreendao.dao.DaoFactory;
 import com.rodrigoamora.testgreendao.entity.Person;
 import com.rodrigoamora.testgreendao.entity.PersonDao;
+import com.rodrigoamora.testgreendao.validator.EmailValitador;
 
 public class SavePersonFragment extends Fragment implements View.OnClickListener {
 
@@ -42,13 +44,35 @@ public class SavePersonFragment extends Fragment implements View.OnClickListener
     }
 
     private void savePerson() {
-        Person person = new Person();
-        person.setEmail(inputEmail.getText().toString());
-        person.setName(inputName.getText().toString());
-        person.setPhone(inputPhone.getText().toString());
+        if (validateInputs()) {
+            Person person = new Person();
+            person.setEmail(inputEmail.getText().toString());
+            person.setName(inputName.getText().toString());
+            person.setPhone(inputPhone.getText().toString());
 
-        PersonDao pesonDao = DaoFactory.createSession(getActivity()).getPersonDao();
-        pesonDao.save(person);
+            PersonDao pesonDao = DaoFactory.createSession(getActivity()).getPersonDao();
+            pesonDao.save(person);
+        }
+    }
+
+    private boolean validateInputs() {
+        if (!EmailValitador.validateEmail(inputEmail.getText().toString())) {
+            Toast.makeText(getActivity(), getString(R.string.alert_email_invalid), Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (inputEmail.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(), getString(R.string.alert_email_empty), Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (inputPhone.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(), getString(R.string.alert_phone_empty), Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (inputName.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(), getString(R.string.alert_name_empty), Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
 }

@@ -17,6 +17,7 @@ import com.rodrigoamora.testgreendao.entity.DaoSession;
 import com.rodrigoamora.testgreendao.fragment.ListPeopleFragment;
 import com.rodrigoamora.testgreendao.fragment.SavePersonFragment;
 import com.rodrigoamora.testgreendao.util.FragmentUtil;
+import com.rodrigoamora.testgreendao.validator.DirectShareUtil;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_list_people) {
             FragmentUtil.changeFragment(R.id.conatiner, ListPeopleFragment.class, getFragmentManager(), false, null);
         } else if (id == R.id.nav_share) {
-            directShare();
+            DirectShareUtil.directShare(this, getString(R.string.share));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -93,16 +94,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    private void directShare() {
-        String textShare = "APP Test-GreenDao\n"+
-                "URL: https://github.com/RodrigoAmora/test-greendao";
-
-        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, textShare);
-        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share)));
     }
 
 }

@@ -1,5 +1,6 @@
 package com.rodrigoamora.testgreendao.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -71,6 +72,8 @@ public class MainActivity extends AppCompatActivity
             FragmentUtil.changeFragment(R.id.conatiner, SavePersonFragment.class, getFragmentManager(), false, null);
         } else if (id == R.id.nav_list_people) {
             FragmentUtil.changeFragment(R.id.conatiner, ListPeopleFragment.class, getFragmentManager(), false, null);
+        } else if (id == R.id.nav_share) {
+            directShare();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -90,6 +93,16 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void directShare() {
+        String textShare = "APP Test-GreenDao\n"+
+                "URL: https://github.com/RodrigoAmora/test-greendao";
+
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, textShare);
+        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share)));
     }
 
 }

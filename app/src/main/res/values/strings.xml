@@ -20,6 +20,7 @@
     <string name="list_people">List people</string>
     <string name="people">People</string>
     <string name="person">Person</string>
+    <string name="person_deleted">Person deleted!</string>
     <string name="phone">Phone:</string>
     <string name="name">Name:</string>
     <string name="save">Save</string>

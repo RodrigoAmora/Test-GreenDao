@@ -17,6 +17,7 @@
         <EditText
             android:id="@+id/input_phone"
             android:hint="@string/hint_phone_person"
+            android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

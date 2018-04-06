@@ -14,6 +14,7 @@ import com.rodrigoamora.testgreendao.R;
 import com.rodrigoamora.testgreendao.dao.DaoFactory;
 import com.rodrigoamora.testgreendao.entity.Person;
 import com.rodrigoamora.testgreendao.entity.PersonDao;
+import com.rodrigoamora.testgreendao.util.FragmentUtil;
 import com.rodrigoamora.testgreendao.validator.EmailValitador;
 
 public class SavePersonFragment extends Fragment implements View.OnClickListener {
@@ -52,6 +53,9 @@ public class SavePersonFragment extends Fragment implements View.OnClickListener
 
             PersonDao pesonDao = DaoFactory.createSession(getActivity()).getPersonDao();
             pesonDao.save(person);
+
+            Toast.makeText(getActivity(), getString(R.string.person_saved), Toast.LENGTH_LONG).show();
+            FragmentUtil.changeFragment(R.id.conatiner, ListPeopleFragment.class, getFragmentManager(), false, null);
         }
     }
 

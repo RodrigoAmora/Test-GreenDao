@@ -14,9 +14,8 @@ import android.widget.Toast;
 
 import com.rodrigoamora.testgreendao.R;
 import com.rodrigoamora.testgreendao.adapter.PersonAdapter;
-import com.rodrigoamora.testgreendao.dao.DaoFactory;
 import com.rodrigoamora.testgreendao.entity.Person;
-import com.rodrigoamora.testgreendao.entity.PersonDao;
+import com.rodrigoamora.testgreendao.service.PersonService;
 import com.rodrigoamora.testgreendao.validator.DirectShareUtil;
 
 import java.util.List;
@@ -44,8 +43,7 @@ public class ListPeopleFragment extends Fragment implements View.OnClickListener
     }
 
     private void getAllPeople() {
-        PersonDao pesonDao = DaoFactory.createSession(getActivity()).getPersonDao();
-        personList = pesonDao.loadAll();
+        personList = PersonService.getAllPeolplo(getActivity());
         String msg = getString(R.string.total)+" "+personList.size()+" "+getString(R.string.people);
         Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
         populateRecyclerView();

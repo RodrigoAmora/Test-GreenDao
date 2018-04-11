@@ -11,16 +11,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.rodrigoamora.testgreendao.R;
-import com.rodrigoamora.testgreendao.dao.DaoFactory;
 import com.rodrigoamora.testgreendao.entity.Person;
-import com.rodrigoamora.testgreendao.entity.PersonDao;
+import com.rodrigoamora.testgreendao.service.PersonService;
 import com.rodrigoamora.testgreendao.util.FragmentUtil;
 import com.rodrigoamora.testgreendao.validator.EmailValitador;
 
 public class SavePersonFragment extends Fragment implements View.OnClickListener {
 
-    private Button btSave;
-    private EditText inputEmail, inputName, inputPhone;
+    Button btSave;
+    EditText inputEmail, inputName, inputPhone;
 
     @Nullable
     @Override
@@ -51,8 +50,7 @@ public class SavePersonFragment extends Fragment implements View.OnClickListener
             person.setName(inputName.getText().toString());
             person.setPhone(inputPhone.getText().toString());
 
-            PersonDao pesonDao = DaoFactory.createSession(getActivity()).getPersonDao();
-            pesonDao.save(person);
+            PersonService.savePerson(getActivity(), person);
 
             Toast.makeText(getActivity(), getString(R.string.person_saved), Toast.LENGTH_LONG).show();
             FragmentUtil.changeFragment(R.id.conatiner, ListPeopleFragment.class, getFragmentManager(), false, null);

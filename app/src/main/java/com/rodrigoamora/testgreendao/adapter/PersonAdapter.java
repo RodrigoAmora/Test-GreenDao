@@ -7,12 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rodrigoamora.testgreendao.R;
-import com.rodrigoamora.testgreendao.dao.DaoFactory;
 import com.rodrigoamora.testgreendao.entity.Person;
-import com.rodrigoamora.testgreendao.entity.PersonDao;
+import com.rodrigoamora.testgreendao.listener.OnItemClickListener;
 
 import java.util.List;
 
@@ -20,6 +18,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
 
     private Context context;
     private List<Person> personList;
+    private OnItemClickListener onItemClickListener;
 
     public PersonAdapter(Context context, List<Person> personList) {
         this.context = context;
@@ -30,26 +29,12 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
     public PersonAdapter.PersonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.adapter_person, parent, false);
         PersonViewHolder holder = new PersonViewHolder(view);
-
-        holder.btDelete = view.findViewById(R.id.delete_person);
-        holder.emailPerson = view.findViewById(R.id.email_personn);
-        holder.namePerson = view.findViewById(R.id.name_personn);
-        holder.phonePerson = view.findViewById(R.id.phone_personn);
-
         return holder;
     }
 
     @Override
     public void onBindViewHolder(PersonAdapter.PersonViewHolder holder, final int position) {
-        holder.btDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PersonDao pesonDao = DaoFactory.createSession(context).getPersonDao();
-                pesonDao.delete(personList.get(position));
-                Toast.makeText(context, context.getString(R.string.person_deleted), Toast.LENGTH_LONG).show();
-                notifyDataSetChanged();
-            }
-        });
+        holder.setPerson(personList.get(position));
         holder.emailPerson.setText(personList.get(position).getEmail());
         holder.namePerson.setText(personList.get(position).getName());
         holder.phonePerson.setText(personList.get(position).getPhone());
@@ -60,13 +45,34 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
         return personList.size();
     }
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     public class PersonViewHolder extends RecyclerView.ViewHolder {
 
-        ImageButton btDelete;
-        TextView emailPerson, namePerson, phonePerson;
+        private ImageButton btDelete;
+        private TextView emailPerson, namePerson, phonePerson;
+
+        private Person person;
 
         public PersonViewHolder(View itemView) {
             super(itemView);
+            btDelete = itemView.findViewById(R.id.delete_person);
+            btDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListener.onItemClick(person);
+                }
+            });
+
+            emailPerson = itemView.findViewById(R.id.email_personn);
+            namePerson = itemView.findViewById(R.id.name_personn);
+            phonePerson = itemView.findViewById(R.id.phone_personn);
+        }
+
+        public void setPerson(Person person) {
+            this.person = person;
         }
 
     }

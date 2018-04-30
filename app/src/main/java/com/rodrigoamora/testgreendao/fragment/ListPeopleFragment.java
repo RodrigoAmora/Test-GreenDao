@@ -14,7 +14,10 @@ import android.widget.Toast;
 
 import com.rodrigoamora.testgreendao.R;
 import com.rodrigoamora.testgreendao.adapter.PersonAdapter;
+import com.rodrigoamora.testgreendao.dao.DaoFactory;
 import com.rodrigoamora.testgreendao.entity.Person;
+import com.rodrigoamora.testgreendao.entity.PersonDao;
+import com.rodrigoamora.testgreendao.listener.OnItemClickListener;
 import com.rodrigoamora.testgreendao.service.PersonService;
 import com.rodrigoamora.testgreendao.validator.DirectShareUtil;
 
@@ -22,6 +25,7 @@ import java.util.List;
 
 public class ListPeopleFragment extends Fragment implements View.OnClickListener {
 
+    private PersonAdapter adapter = null;
     private List<Person> personList;
     private FloatingActionButton fabShare;
     private RecyclerView recyclerView;
@@ -58,8 +62,19 @@ public class ListPeopleFragment extends Fragment implements View.OnClickListener
     }
 
     private void populateRecyclerView() {
-        PersonAdapter adapter = new PersonAdapter(getActivity(), personList);
+        adapter = new PersonAdapter(getActivity(), personList);
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(Person person) {
+                PersonDao pesonDao = DaoFactory.createSession(getActivity()).getPersonDao();
+                pesonDao.delete(person);
+                personList.remove(person);
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                Toast.makeText(getActivity(), getActivity().getString(R.string.person_deleted), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override

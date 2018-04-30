@@ -35,9 +35,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
     @Override
     public void onBindViewHolder(PersonAdapter.PersonViewHolder holder, final int position) {
         holder.setPerson(personList.get(position));
-        holder.emailPerson.setText(personList.get(position).getEmail());
-        holder.namePerson.setText(personList.get(position).getName());
-        holder.phonePerson.setText(personList.get(position).getPhone());
+        holder.setValues(personList.get(position));
     }
 
     @Override
@@ -73,6 +71,12 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
 
         public void setPerson(Person person) {
             this.person = person;
+        }
+
+        public void setValues(Person person) {
+            emailPerson.setText(person.getEmail());
+            namePerson.setText(person.getName());
+            phonePerson.setText(person.getPhone());
         }
 
     }

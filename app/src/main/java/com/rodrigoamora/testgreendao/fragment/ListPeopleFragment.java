@@ -23,27 +23,41 @@ import com.rodrigoamora.testgreendao.validator.DirectShareUtil;
 
 import java.util.List;
 
-public class ListPeopleFragment extends Fragment implements View.OnClickListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
+public class ListPeopleFragment extends Fragment {
+
+    @BindView(R.id.fab_share)
+    FloatingActionButton fabShare;
+
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+
+    private Unbinder unbinder;
 
     private PersonAdapter adapter = null;
     private List<Person> personList;
-    private FloatingActionButton fabShare;
-    private RecyclerView recyclerView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list_people, container,	false);
 
-        fabShare = rootView.findViewById(R.id.fab_share);
-        fabShare.setOnClickListener(this);
-
-        recyclerView = rootView.findViewById(R.id.recycler_view);
+        unbinder = ButterKnife.bind(this, rootView);
 
         configureRecyclerView();
         getAllPeople();
 
         return rootView;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        unbinder.unbind();
     }
 
     private void getAllPeople() {
@@ -77,11 +91,9 @@ public class ListPeopleFragment extends Fragment implements View.OnClickListener
         });
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view == fabShare) {
-            DirectShareUtil.directShare(getActivity(), getString(R.string.share));
-        }
+    @OnClick(R.id.fab_share)
+    private void share() {
+        DirectShareUtil.directShare(getActivity(), getString(R.string.share));
     }
 
 }

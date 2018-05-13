@@ -16,33 +16,44 @@ import com.rodrigoamora.testgreendao.service.PersonService;
 import com.rodrigoamora.testgreendao.util.FragmentUtil;
 import com.rodrigoamora.testgreendao.validator.EmailValitador;
 
-public class SavePersonFragment extends Fragment implements View.OnClickListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
+public class SavePersonFragment extends Fragment {
+
+    @BindView(R.id.bt_save)
     Button btSave;
-    EditText inputEmail, inputName, inputPhone;
+
+    @BindView(R.id.input_email)
+    EditText inputEmail;
+
+    @BindView(R.id.input_name)
+    EditText inputName;
+
+    @BindView(R.id.input_phone)
+    EditText inputPhone;
+
+    private Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_save_person, container,	false);
 
-        btSave = rootView.findViewById(R.id.bt_save);
-        btSave.setOnClickListener(this);
-
-        inputEmail = rootView.findViewById(R.id.input_email);
-        inputPhone = rootView.findViewById(R.id.input_phone);
-        inputName = rootView.findViewById(R.id.input_name);
+        unbinder = ButterKnife.bind(this, rootView);
 
         return rootView;
     }
 
     @Override
-    public void onClick(View view) {
-        if (view == btSave) {
-            savePerson();
-        }
+    public void onStop() {
+        super.onStop();
+        unbinder.unbind();
     }
 
+    @OnClick(R.id.bt_save)
     private void savePerson() {
         if (validateInputs()) {
             Person person = new Person();

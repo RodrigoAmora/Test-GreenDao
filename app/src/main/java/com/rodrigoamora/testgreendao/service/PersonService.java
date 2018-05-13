@@ -1,6 +1,5 @@
 package com.rodrigoamora.testgreendao.service;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.rodrigoamora.testgreendao.dao.DaoFactory;

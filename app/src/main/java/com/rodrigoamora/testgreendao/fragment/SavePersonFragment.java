@@ -54,7 +54,7 @@ public class SavePersonFragment extends Fragment {
     }
 
     @OnClick(R.id.bt_save)
-    private void savePerson() {
+    public void savePerson() {
         if (validateInputs()) {
             Person person = new Person();
             person.setEmail(inputEmail.getText().toString());

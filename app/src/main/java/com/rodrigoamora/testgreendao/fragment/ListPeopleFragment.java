@@ -92,7 +92,7 @@ public class ListPeopleFragment extends Fragment {
     }
 
     @OnClick(R.id.fab_share)
-    private void share() {
+    public void share() {
         DirectShareUtil.directShare(getActivity(), getString(R.string.share));
     }
 

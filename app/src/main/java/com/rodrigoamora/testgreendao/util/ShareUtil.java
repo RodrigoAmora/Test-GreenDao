@@ -1,4 +1,4 @@
-package com.rodrigoamora.testgreendao.validator;
+package com.rodrigoamora.testgreendao.util;
 
 import android.content.Context;
 import android.content.Intent;

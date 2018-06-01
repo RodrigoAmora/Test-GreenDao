@@ -16,7 +16,7 @@ import com.rodrigoamora.testgreendao.entity.DaoSession;
 import com.rodrigoamora.testgreendao.fragment.ListPeopleFragment;
 import com.rodrigoamora.testgreendao.fragment.SavePersonFragment;
 import com.rodrigoamora.testgreendao.util.FragmentUtil;
-import com.rodrigoamora.testgreendao.validator.ShareUtil;
+import com.rodrigoamora.testgreendao.util.ShareUtil;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

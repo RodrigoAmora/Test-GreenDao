@@ -20,7 +20,7 @@ import com.rodrigoamora.testgreendao.entity.PersonDao;
 import com.rodrigoamora.testgreendao.listener.OnItemClickListener;
 import com.rodrigoamora.testgreendao.service.PersonService;
 import com.rodrigoamora.testgreendao.util.FragmentUtil;
-import com.rodrigoamora.testgreendao.validator.ShareUtil;
+import com.rodrigoamora.testgreendao.util.ShareUtil;
 
 import java.io.Serializable;
 import java.util.List;

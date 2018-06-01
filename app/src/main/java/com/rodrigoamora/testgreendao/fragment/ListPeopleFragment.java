@@ -22,6 +22,7 @@ import com.rodrigoamora.testgreendao.service.PersonService;
 import com.rodrigoamora.testgreendao.util.FragmentUtil;
 import com.rodrigoamora.testgreendao.validator.DirectShareUtil;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -85,13 +86,16 @@ public class ListPeopleFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(Person person) {
-                PersonDao pesonDao = DaoFactory.createSession(getActivity()).getPersonDao();
-                pesonDao.delete(person);
-                personList.remove(person);
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-                Toast.makeText(getActivity(), getActivity().getString(R.string.person_deleted), Toast.LENGTH_LONG).show();
+            public void onItemClick(int viewId, Person person) {
+                switch (viewId) {
+                    case R.id.delete_person:
+                        deletePerson(person);
+                        break;
+
+                    case R.id.edit_person:
+                        editPErson(person);
+                        break;
+                }
             }
         });
     }
@@ -104,6 +108,21 @@ public class ListPeopleFragment extends Fragment {
     @OnClick(R.id.fab_save_person)
     public void savePerson() {
         FragmentUtil.changeFragment(R.id.conatiner, SavePersonFragment.class, getFragmentManager(), false, null);
+    }
+
+    private void deletePerson(Person person) {
+        PersonDao pesonDao = DaoFactory.createSession(getActivity()).getPersonDao();
+        pesonDao.delete(person);
+        personList.remove(person);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        Toast.makeText(getActivity(), getActivity().getString(R.string.person_deleted), Toast.LENGTH_LONG).show();
+    }
+
+    private void editPErson(Person person) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("person", (Serializable) person);
+        FragmentUtil.changeFragment(R.id.conatiner, SavePersonFragment.class, getFragmentManager(), false, bundle);
     }
 
 }

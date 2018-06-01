@@ -21,6 +21,7 @@
     <string name="people">People</string>
     <string name="person">Person</string>
     <string name="person_deleted">Person deleted!</string>
+    <string name="person_edited">Person edited!</string>
     <string name="person_saved">Person saved!</string>
     <string name="phone">Phone:</string>
     <string name="name">Name:</string>

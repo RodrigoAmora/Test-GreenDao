@@ -37,6 +37,8 @@ public class SavePersonFragment extends Fragment {
 
     private Unbinder unbinder;
 
+    private Person person;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -44,6 +46,13 @@ public class SavePersonFragment extends Fragment {
 
         unbinder = ButterKnife.bind(this, rootView);
 
+        if (getArguments() != null) {
+            person = (Person) getArguments().getSerializable("person");
+
+            inputEmail.setText(person.getEmail());
+            inputName.setText(person.getName());
+            inputPhone.setText(person.getPhone());
+        }
         return rootView;
     }
 
@@ -56,14 +65,18 @@ public class SavePersonFragment extends Fragment {
     @OnClick(R.id.bt_save)
     public void savePerson() {
         if (validateInputs()) {
-            Person person = new Person();
             person.setEmail(inputEmail.getText().toString());
             person.setName(inputName.getText().toString());
             person.setPhone(inputPhone.getText().toString());
 
-            PersonService.savePerson(getActivity(), person);
+            if (person.getId() == null) {
+                PersonService.savePerson(getActivity(), person);
+                Toast.makeText(getActivity(), getString(R.string.person_saved), Toast.LENGTH_LONG).show();
+            } else {
+                PersonService.editPerson(getActivity(), person);
+                Toast.makeText(getActivity(), getString(R.string.person_edited), Toast.LENGTH_LONG).show();
+            }
 
-            Toast.makeText(getActivity(), getString(R.string.person_saved), Toast.LENGTH_LONG).show();
             FragmentUtil.changeFragment(R.id.conatiner, ListPeopleFragment.class, getFragmentManager(), false, null);
         }
     }

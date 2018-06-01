@@ -4,6 +4,6 @@ import com.rodrigoamora.testgreendao.entity.Person;
 
 public interface OnItemClickListener {
 
-    public void onItemClick(Person person);
+    void onItemClick(int viewId, Person person);
 
 }

@@ -49,7 +49,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
 
     public class PersonViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageButton btDelete;
+        private ImageButton btDelete, btEdit;
         private TextView emailPerson, namePerson, phonePerson;
 
         private Person person;
@@ -60,7 +60,15 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
             btDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onItemClickListener.onItemClick(person);
+                    onItemClickListener.onItemClick(btDelete.getId(), person);
+                }
+            });
+
+            btEdit = itemView.findViewById(R.id.edit_person);
+            btEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListener.onItemClick(btEdit.getId(), person);
                 }
             });
 

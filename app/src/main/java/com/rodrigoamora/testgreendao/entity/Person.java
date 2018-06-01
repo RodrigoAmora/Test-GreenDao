@@ -8,7 +8,9 @@ import org.greenrobot.greendao.annotation.NotNull;
 import java.io.Serializable;
 
 @Entity
-public class Person {
+public class Person implements Serializable {
+
+    private static final long serialVersionUID = 2806421523585360625L;
 
     @Id
     private Long id;

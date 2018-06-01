@@ -10,6 +10,11 @@ import java.util.List;
 
 public class PersonService {
 
+    public static void editPerson(Context activity, Person person) {
+        PersonDao pesonDao = DaoFactory.createSession(activity).getPersonDao();
+        pesonDao.update(person);
+    }
+
     public static List<Person> getAllPeolplo(Context activity) {
         PersonDao pesonDao = DaoFactory.createSession(activity).getPersonDao();
         return pesonDao.loadAll();

@@ -26,6 +26,7 @@
         <EditText
             android:id="@+id/input_email"
             android:hint="@string/hint_email_person"
+            android:inputType="textEmailAddress"
             android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

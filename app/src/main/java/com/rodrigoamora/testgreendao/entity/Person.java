@@ -5,6 +5,8 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 
+import java.io.Serializable;
+
 @Entity
 public class Person {
 

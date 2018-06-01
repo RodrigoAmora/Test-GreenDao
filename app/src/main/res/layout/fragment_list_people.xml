@@ -12,6 +12,15 @@
         android:layout_height="wrap_content" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_save_person"
+        android:src="@android:drawable/ic_menu_save"
+        android:layout_gravity="end"
+        app:layout_anchor="@id/fab_share"
+        android:layout_margin="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_share"
         android:src="@android:drawable/ic_menu_share"
         android:layout_gravity="end|bottom"

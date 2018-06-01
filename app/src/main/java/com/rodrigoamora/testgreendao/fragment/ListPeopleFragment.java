@@ -19,11 +19,13 @@ import com.rodrigoamora.testgreendao.entity.Person;
 import com.rodrigoamora.testgreendao.entity.PersonDao;
 import com.rodrigoamora.testgreendao.listener.OnItemClickListener;
 import com.rodrigoamora.testgreendao.service.PersonService;
+import com.rodrigoamora.testgreendao.util.FragmentUtil;
 import com.rodrigoamora.testgreendao.validator.DirectShareUtil;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -32,6 +34,9 @@ public class ListPeopleFragment extends Fragment {
 
     @BindView(R.id.fab_share)
     FloatingActionButton fabShare;
+
+    @BindView(R.id.fab_save_person)
+    FloatingActionButton fabSavePerson;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -94,6 +99,11 @@ public class ListPeopleFragment extends Fragment {
     @OnClick(R.id.fab_share)
     public void share() {
         DirectShareUtil.directShare(getActivity(), getString(R.string.share));
+    }
+
+    @OnClick(R.id.fab_save_person)
+    public void savePerson() {
+        FragmentUtil.changeFragment(R.id.conatiner, SavePersonFragment.class, getFragmentManager(), false, null);
     }
 
 }

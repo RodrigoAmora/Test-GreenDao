@@ -3,9 +3,7 @@ package com.rodrigoamora.testgreendao.validator;
 import android.content.Context;
 import android.content.Intent;
 
-import com.rodrigoamora.testgreendao.R;
-
-public class DirectShareUtil {
+public class ShareUtil {
 
     public static void directShare(Context context, String title) {
         String textShare = "APP Test-GreenDao\n"+

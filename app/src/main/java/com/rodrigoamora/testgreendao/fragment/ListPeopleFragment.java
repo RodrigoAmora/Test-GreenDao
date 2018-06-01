@@ -101,7 +101,9 @@ public class ListPeopleFragment extends Fragment {
 
     @OnClick(R.id.fab_share)
     public void share() {
-        ShareUtil.directShare(getActivity(), getString(R.string.share));
+        String textShare = "APP Test-GreenDao\n"+
+                "URL: https://github.com/RodrigoAmora/test-greendao";
+        ShareUtil.directShare(getActivity(), getString(R.string.share), textShare);
     }
 
     @OnClick(R.id.fab_save_person)

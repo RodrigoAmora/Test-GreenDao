@@ -74,7 +74,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_list_people) {
             FragmentUtil.changeFragment(R.id.conatiner, ListPeopleFragment.class, getFragmentManager(), false, null);
         } else if (id == R.id.nav_share) {
-            ShareUtil.directShare(this, getString(R.string.share));
+            String textShare = "APP Test-GreenDao\n"+
+                    "URL: https://github.com/RodrigoAmora/test-greendao";
+            ShareUtil.directShare(this, getString(R.string.share), textShare);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

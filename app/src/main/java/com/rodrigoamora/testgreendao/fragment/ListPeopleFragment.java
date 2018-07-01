@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rodrigoamora.testgreendao.R;
+import com.rodrigoamora.testgreendao.activity.MainActivity;
 import com.rodrigoamora.testgreendao.adapter.PersonAdapter;
 import com.rodrigoamora.testgreendao.dao.DaoFactory;
 import com.rodrigoamora.testgreendao.entity.Person;
@@ -45,6 +47,7 @@ public class ListPeopleFragment extends Fragment {
 
     private PersonAdapter adapter = null;
     private List<Person> personList;
+    private MainActivity activity;
 
     @Nullable
     @Override
@@ -60,6 +63,12 @@ public class ListPeopleFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        activity = (MainActivity) getActivity();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         unbinder.unbind();
@@ -68,12 +77,15 @@ public class ListPeopleFragment extends Fragment {
     private void getAllPeople() {
         personList = PersonService.getAllPeolplo(getActivity());
         String msg = getString(R.string.total)+" "+personList.size()+" "+getString(R.string.people);
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(activity, msg, Toast.LENGTH_LONG).show();
         populateRecyclerView();
     }
 
     private void configureRecyclerView() {
-        LinearLayoutManager linearLayout = new LinearLayoutManager(getActivity());
+        LinearLayoutManager linearLayout = new LinearLayoutManager(activity);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL);
+
+        recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -103,7 +115,7 @@ public class ListPeopleFragment extends Fragment {
     public void share() {
         String textShare = "APP Test-GreenDao\n"+
                 "URL: https://github.com/RodrigoAmora/test-greendao";
-        ShareUtil.directShare(getActivity(), getString(R.string.share), textShare);
+        ShareUtil.directShare(activity, getString(R.string.share), textShare);
     }
 
     @OnClick(R.id.fab_save_person)
@@ -112,7 +124,7 @@ public class ListPeopleFragment extends Fragment {
     }
 
     private void deletePerson(Person person) {
-        PersonDao pesonDao = DaoFactory.createSession(getActivity()).getPersonDao();
+        PersonDao pesonDao = DaoFactory.createSession(activity).getPersonDao();
         pesonDao.delete(person);
         personList.remove(person);
         recyclerView.setAdapter(adapter);
